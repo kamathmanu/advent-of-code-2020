@@ -3,7 +3,7 @@
 
 # O(N) time and space complexity
 def parse_input():
-    with open('input.txt') as f:
+    with open('../input.txt') as f:
         nums = list(int(line.split()[0]) for line in f) # list comprehension
     return nums
 
@@ -29,6 +29,7 @@ def three_sum(nums : List[int]) -> List[int]:
         if i > 0 and num == nums[i - 1]:
             continue
         
+        # use a two-pointer solution to check where our sum is
         l = i + 1
         r = len(nums) - 1
 
