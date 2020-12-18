@@ -72,4 +72,17 @@ Figure out where the navigation instructions actually lead. What is the Manhatta
 
 ## Solution
 
-Python: `python3 solution.py`
+To run the solution for each language, go to the respective subdirectory for the language, and run the relevant command(s).
+
+**Python:** `python3 solution.py`
+
+**C++**:
+
+```[bash]
+mkdir build
+cd build
+conan install ../ --build=missing
+cmake ../
+cmake --build .
+./solution
+```
