@@ -22,7 +22,7 @@ def parse_input(filename) -> Dict[str, List[str]]:
         valid_rules[key] = val
     return valid_rules
 
-def dfs(rules, primary_bag, memo) -> bool:
+def dfs(rules : Dict[str, List[str]], primary_bag : str, memo : Dict[str, bool]) -> bool:
     # Base case(s):
     # The key's colour has an empty list (contains no other bags) - return False
     result = False
@@ -63,11 +63,42 @@ def part1(rules : Dict[str, List[str]]):
         if dfs(rules, bag, memo): # O(R) time and space, R is the # of rules
             result += 1
     print("Part 1:", result)
+
+
+# Similar DP solution. But, revisit this to understand a possible
+# F/B & Viterbi-esque relationship?
+def backtrack(rules: Dict[str, List[str]], primary_bag : str, memo : Dict[str, int]) -> int:
+    # base case : if the bag contains no other bags, return 1
+    if not rules[primary_bag]:
+        memo[primary_bag] = 1
+        return 1
+    
+    if memo[primary_bag] is not None:
+        return memo[primary_bag]
+    
+    result = 0
+
+    for entry in rules[primary_bag]:
+        (val, colour) = entry.split(" ", 1)
+        # print(primary_bag, ":", val, colour)
+        result += int(val) * backtrack(rules, colour, memo)
+
+    memo[primary_bag] = 1 + result # count the primary bag as well
+    return memo[primary_bag]
+
+
+def part2(rules : Dict[str, List[str]]):
+    # Backtracking - we start from shiny gold. The total number of bags
+    # (including the shiny gold) is 1 + count(bags in rules[shiny_gold])
+    memo = dict(zip(rules.keys(), (None for _ in range(len(rules)))))
+    result = backtrack(rules, "shiny gold", memo) - 1
+    # also, revisit because is there a way to either combine parts 1 and 2, or make the DP generic?
+    print("Part 2:", result)
     return result
 
 if __name__ == "__main__":
     # bag_rules = parse_input('../test_pt1.txt') # Expected answer = 4
     bag_rules = parse_input('../input.txt')
-    count = part1(bag_rules)
-    bag_rules = parse_input('../test_pt2.txt') # Expected answer = 126
+    part1(bag_rules)
+    bag_rules = parse_input('../input.txt') # Expected answer = 126
     part2(bag_rules)
