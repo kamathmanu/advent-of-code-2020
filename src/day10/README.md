@@ -150,6 +150,19 @@ You glance back down at your bag and try to remember why you brought so many ada
 
 ## Solution
 
+To run the solution for each language, go to the respective subdirectory for the language, and run the relevant command(s).
+
+**C++**:
+
+```[bash]
+mkdir build
+cd build
+conan install ../ --build=missing
+cmake ../
+cmake --build .
+./solution
+```
+
 ```[bash]
 mkdir bin
 clang++ -std=c++2a -stdlib=libc++ solution.cpp -o bin/solution  && bin/solution
