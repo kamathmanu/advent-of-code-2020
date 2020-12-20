@@ -62,13 +62,19 @@ def part1(code):
     return acc
 
 def part2(code):
-    final_acc = acc_after_change(code)
+    # Part 2 is a bit more interesting. 
+    # NOTE: we don't need to flip every nop/jmp - just the ones that are seen in our hash map
+    # once you flip the instruction, execute from there and continue until we hit a seen instruction
+    # The complexity is O(N), because the we have bounded the graph traversal to at most 2 passes (2N
+    # instructions) to explore the correct instruction to flip. 
+    # After that, we can do a third pass to get the accumulator value.
+    final_acc = acc_after_change(code) # I don't think this fully works, but this is not a priority fix atm. 
     return final_acc
 
 if __name__ == "__main__":
     import copy
     # O(N) time and space (since our implicit boolean fields count as auxilliary space)
-    with open("input.txt") as f:
+    with open("../input.txt") as f:
         code = [loc(line.split()[0], int(line.split()[1]), False) for line in f]
     # TODO: analyze complexities, also improve the space in Pt 2 due to excessive copies???
     print(part1(copy.deepcopy(code)))
