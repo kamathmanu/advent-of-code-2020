@@ -1,0 +1,7 @@
+[requires]
+range-v3/0.10.0
+fmt/7.1.2
+eigen/3.3.9
+
+[generators]
+cmake
