@@ -2,7 +2,7 @@
 
 s1, s2 = 0, 0
 
-for group in open("../input.txt").read().split("\n\n"):
+for group in open("../input.txt").read().split("\n\n")[:1]:
     s1 += len(set(group.replace("\n", "")))
     s2 += len(set.intersection(
         *map(set, group.split())
